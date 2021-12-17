@@ -11,7 +11,6 @@ import com.vanillasource.serdes.tuple.*;
 import com.vanillasource.serdes.Serdes;
 import static java.lang.Math.*;
 import static com.vanillasource.serdes.basic.Serdeses.*;
-import static com.vanillasource.serdes.seq.SerdesFactory.*;
 import static com.vanillasource.serdes.seq.Sequences.*;
 import java.io.OutputStream;
 import java.io.InputStream;
@@ -149,15 +148,9 @@ public final class Unions {
       if (serdeses.size() != lifts.size()) {
          throw new IllegalArgumentException("mismatched parameters");
       }
-      Optional<Integer> maxLength;
-      if (serdeses.stream().anyMatch(serdes -> !serdes.maxLength().isPresent())) {
-         maxLength = Optional.empty();
-      } else {
-         maxLength = serdeses.stream().map(serdes -> serdes.maxLength().get()).max(Integer::compare);
-      }
       return seq(
             codeLengthSerdes(),
-            optionalMaxLength(maxLength, codeLength -> fixedByteArraySerdes(codeLength.b)))
+            codeLength -> fixedByteArraySerdes(codeLength.b))
          .map(o -> {
             Object[] items = o.stream().toArray();
             byte code = IntStream.range(0, o.size()).filter(i -> items[i] != null).mapToObj(i -> i).findFirst()
@@ -182,7 +175,7 @@ public final class Unions {
    static Serdes<Tuple2<Byte, Integer>> codeLengthSerdes() {
       return seq(
             byteSerdes(), // Code high 3 bits (0,1,2,3,4=0,1,2,4,8 bytes, 5,6,7=length encoded in following 1,2,4 bytes) 
-            withMaxLength(4, code -> {
+            code -> {
                int lengthCode = (code & 0xFF) >>> 5;
                switch (lengthCode) {
                   case 5:
@@ -198,7 +191,7 @@ public final class Unions {
                         return empty().map(o -> 0, t-> (1<<(lengthCode-1)));
                      }
                }
-            })
+            }
       ).map(o -> {
          if (o.a > 31) {
             throw new IllegalArgumentException("code can not be more than 31");

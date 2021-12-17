@@ -19,7 +19,7 @@ import static com.vanillasource.serdes.tuple.Tuples.*;
 @Test
 public final class UnionsTests {
    private static final Serdes<Tuple4<String, Integer, Boolean, Long>> SERDES = union(
-         stringSerdes(10), intSerdes(), booleanSerdes(), longSerdes());
+         stringSerdes(), intSerdes(), booleanSerdes(), longSerdes());
 
    public void testDeserializingUnknownCodeReturnsEmpty() {
       Tuple4<String, Integer, Boolean, Long> result = SERDES.deserializeFromBytes(new byte[] { 9 });

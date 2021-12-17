@@ -20,7 +20,7 @@ import static com.vanillasource.serdes.tuple.Tuples.*;
 @Test
 public final class FieldsTests {
    private static final Serdes<Tuple4<String, Integer, Boolean, Long>> SERDES = fields(
-         stringSerdes(10), intSerdes(), booleanSerdes(), longSerdes());
+         stringSerdes(), intSerdes(), booleanSerdes(), longSerdes());
 
    public void testSerdesOfAWorks() {
       Tuple4<String, Integer, Boolean, Long> result = SERDES.deserializeFromBytes(
@@ -67,7 +67,7 @@ public final class FieldsTests {
 
    public void testSerdesIsBackwardsCompatible() {
       Serdes<Tuple3<String, Integer, Boolean>> oldSerdes = fields(
-         stringSerdes(10), intSerdes(), booleanSerdes());
+         stringSerdes(), intSerdes(), booleanSerdes());
 
       Tuple4<String, Integer, Boolean, Long> result = SERDES.deserializeFromBytes(
             oldSerdes.serializeToBytes(tuple("abc", 42, true))
@@ -81,7 +81,7 @@ public final class FieldsTests {
 
    public void testSerdesIsForwardsCompabile() {
       Serdes<Tuple3<String, Integer, Boolean>> oldSerdes = fields(
-         stringSerdes(10), intSerdes(), booleanSerdes());
+         stringSerdes(), intSerdes(), booleanSerdes());
 
       Tuple3<String, Integer, Boolean> result = oldSerdes.deserializeFromBytes(
             SERDES.serializeToBytes(tuple("abc", 42, true, 9876543210L))

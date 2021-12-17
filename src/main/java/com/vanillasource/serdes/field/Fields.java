@@ -18,7 +18,7 @@ public final class Fields {
    public static <A> Serdes<Tuple1<A>> fields(
          Serdes<A> aSerdes
    ) {
-      return listSerdes(1, union(aSerdes))
+      return listSerdes(union(aSerdes))
          .map(Tuple1::explode, Tuple1::merge);
    }
    
@@ -26,7 +26,7 @@ public final class Fields {
          Serdes<A> aSerdes,
          Serdes<B> bSerdes
    ) {
-      return listSerdes(2, union(aSerdes, bSerdes))
+      return listSerdes(union(aSerdes, bSerdes))
          .map(Tuple2::explode, Tuple2::merge);
    }
 
@@ -35,7 +35,7 @@ public final class Fields {
          Serdes<B> bSerdes,
          Serdes<C> cSerdes
    ) {
-      return listSerdes(3, union(aSerdes, bSerdes, cSerdes))
+      return listSerdes(union(aSerdes, bSerdes, cSerdes))
          .map(Tuple3::explode, Tuple3::merge);
    }
 
@@ -45,7 +45,7 @@ public final class Fields {
          Serdes<C> cSerdes,
          Serdes<D> dSerdes
    ) {
-      return listSerdes(4, union(aSerdes, bSerdes, cSerdes, dSerdes))
+      return listSerdes(union(aSerdes, bSerdes, cSerdes, dSerdes))
          .map(Tuple4::explode, Tuple4::merge);
    }
 
@@ -56,7 +56,7 @@ public final class Fields {
          Serdes<D> dSerdes,
          Serdes<E> eSerdes
    ) {
-      return listSerdes(5, union(aSerdes, bSerdes, cSerdes, dSerdes, eSerdes))
+      return listSerdes(union(aSerdes, bSerdes, cSerdes, dSerdes, eSerdes))
          .map(Tuple5::explode, Tuple5::merge);
    }
 
@@ -68,7 +68,7 @@ public final class Fields {
          Serdes<E> eSerdes,
          Serdes<F> fSerdes
    ) {
-      return listSerdes(6, union(aSerdes, bSerdes, cSerdes, dSerdes, eSerdes, fSerdes))
+      return listSerdes(union(aSerdes, bSerdes, cSerdes, dSerdes, eSerdes, fSerdes))
          .map(Tuple6::explode, Tuple6::merge);
    }
 
@@ -81,7 +81,7 @@ public final class Fields {
          Serdes<F> fSerdes,
          Serdes<G> gSerdes
    ) {
-      return listSerdes(7, union(aSerdes, bSerdes, cSerdes, dSerdes, eSerdes, fSerdes, gSerdes))
+      return listSerdes(union(aSerdes, bSerdes, cSerdes, dSerdes, eSerdes, fSerdes, gSerdes))
          .map(Tuple7::explode, Tuple7::merge);
    }
 
@@ -95,7 +95,7 @@ public final class Fields {
          Serdes<G> gSerdes,
          Serdes<H> hSerdes
    ) {
-      return listSerdes(8, union(aSerdes, bSerdes, cSerdes, dSerdes, eSerdes, fSerdes, gSerdes, hSerdes))
+      return listSerdes(union(aSerdes, bSerdes, cSerdes, dSerdes, eSerdes, fSerdes, gSerdes, hSerdes))
          .map(Tuple8::explode, Tuple8::merge);
    }
 
@@ -110,7 +110,7 @@ public final class Fields {
          Serdes<H> hSerdes,
          Serdes<I> iSerdes
    ) {
-      return listSerdes(9, union(aSerdes, bSerdes, cSerdes, dSerdes, eSerdes, fSerdes, gSerdes, hSerdes, iSerdes))
+      return listSerdes(union(aSerdes, bSerdes, cSerdes, dSerdes, eSerdes, fSerdes, gSerdes, hSerdes, iSerdes))
          .map(Tuple9::explode, Tuple9::merge);
    }
 }

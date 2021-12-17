@@ -14,24 +14,11 @@ import java.io.UncheckedIOException;
 @Test
 public final class SerdesesTests {
    public void testStringCanSerializeAndDeserialize() {
-      byte[] data = stringSerdes(10).serializeToBytes("abcd");
+      byte[] data = stringSerdes().serializeToBytes("abcd");
 
-      String value = stringSerdes(10).deserializeFromBytes(data);
+      String value = stringSerdes().deserializeFromBytes(data);
 
       assertEquals(value, "abcd");
-   }
-
-   public void testStringCanContainMaxLengthLatinCharacters() {
-      byte[] data = stringSerdes(5).serializeToBytes("abcde");
-
-      String value = stringSerdes(5).deserializeFromBytes(data);
-
-      assertEquals(value, "abcde");
-   }
-
-   @Test(expectedExceptions = UncheckedIOException.class)
-   public void testStringCanNotContainMaxLengthUTFCharacters() {
-      byte[] data = stringSerdes(5).serializeToBytes("αbcde");
    }
 }
 

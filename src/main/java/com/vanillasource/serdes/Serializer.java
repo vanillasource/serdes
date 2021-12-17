@@ -12,8 +12,6 @@ import java.io.ByteArrayOutputStream;
 import java.util.Optional;
 
 public interface Serializer<A> {
-   Optional<Integer> maxLength();
-
    void serialize(A object, OutputStream output);
 
    default byte[] serializeToBytes(A object) {
